@@ -7,17 +7,17 @@ spec:
   project: default
 
   source:
-    repoURL: https://gitlab.com/nanuchi/argocd-app-config.git
+    repoURL: https://github.com/louisloechel/argocd-testing.git
     targetRevision: HEAD
     path: dev
   destination: 
-    server: https://kubernetes.default.svc
+    server: https://kubernetes.default.svc # note: internal service name of kubernetes' api server. This only works because ArgoCD is deployed inside the destination clsuter.
     namespace: myapp
 
   syncPolicy:
     syncOptions:
     - CreateNamespace=true
 
-    automated:
+    automated: # note: ArgoCD polls Git repo every 3 minutes by default. This can be changed by setting the `--repo-poll-timeout` flag on the ArgoCD server.
       selfHeal: true
       prune: true
