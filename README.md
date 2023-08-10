@@ -1,0 +1,2 @@
+# argocd-testing
+ exploring argocd
