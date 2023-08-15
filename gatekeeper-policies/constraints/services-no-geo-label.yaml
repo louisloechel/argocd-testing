@@ -1,0 +1,11 @@
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sProhibitedLabels
+metadata:
+  name: services-must-not-have-geo-us-label
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Service"]
+  parameters:
+    labels: ["geo-US"]
