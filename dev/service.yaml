@@ -2,7 +2,8 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    geo: US,CA
+    geo-US: "true"
+    geo-CA: "true"
   name: myapp-service
 spec:
   selector:
