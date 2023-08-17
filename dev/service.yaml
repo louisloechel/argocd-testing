@@ -2,10 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    geo-DE: "true"
-    geo-null: "true"
-    # geo-US: "true"
-    # geo-CA: "true"
+    # geo-null: "true"
     geo-EU: "true"
   name: myapp-service
 spec:
