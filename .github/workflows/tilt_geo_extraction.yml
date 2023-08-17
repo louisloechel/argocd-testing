@@ -20,14 +20,20 @@ jobs:
       run: |
         # Extract country from tilt.json
         COUNTRIES=$(jq -r '.dataDisclosed[]?.recipients[]?.country' tilt.json)
-
-        # Update service.yaml for each country
-        for COUNTRY in $COUNTRIES; do
-            LABEL="geo-$COUNTRY: \"true\""
-            if ! grep -q "$LABEL" dev/service.yaml; then
-                awk -v label="$LABEL" '/labels:/ { print; print "    " label; next }1' dev/service.yaml > dev/service_temp.yaml && mv dev/service_temp.yaml dev/service.yaml
-            fi
-        done
+        
+        # Print the extracted countries
+        echo "Extracted Countries: $COUNTRIES"
+        
+        # Check if there are any countries extracted
+        if [ -n "$COUNTRIES" ]; then
+            # Update service.yaml for each country
+            for COUNTRY in $COUNTRIES; do
+                LABEL="geo-$COUNTRY: \"true\""
+                if ! grep -q "$LABEL" dev/service.yaml; then
+                    awk -v label="$LABEL" '/labels:/ { print; print "    " label; next }1' dev/service.yaml > dev/service_temp.yaml && mv dev/service_temp.yaml dev/service.yaml
+                fi
+            done
+        fi
 
     - name: Commit and push if changed
       run: |
