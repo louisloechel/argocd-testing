@@ -1,0 +1,38 @@
+name: Tilt Geo Extraction
+
+on:
+  push:
+    paths:
+      - 'tilt.json'
+
+jobs:
+  update-service:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v2
+
+    - name: Set up JQ
+      run: sudo apt-get install jq
+
+    - name: Extract country and update service.yaml
+      run: |
+        # Extract country from tilt.json
+        COUNTRIES=$(jq -r '.dataDisclosed[]?.recipients[]?.country' tilt.json)
+
+        # Update service.yaml for each country
+        for COUNTRY in $COUNTRIES; do
+            LABEL="geo-$COUNTRY: \"true\""
+            if ! grep -q "$LABEL" dev/service.yaml; then
+                awk -v label="$LABEL" '/labels:/ { print; print "    " label; next }1' dev/service.yaml > dev/service_temp.yaml && mv dev/service_temp.yaml dev/service.yaml
+            fi
+        done
+
+    - name: Commit and push if changed
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add dev/service.yaml
+        git diff-index --quiet HEAD || git commit -m "Update service.yaml with geo label from tilt.json"
+        git push
