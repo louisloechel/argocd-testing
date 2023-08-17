@@ -40,4 +40,12 @@ kubectl apply -f https://raw.githubusercontent.com/open-policy-agent/gatekeeper/
 ## 3. Usage
 Find current templates and constraints within /gatekeeper-policies. Read more about this in the [gatekkeper docs](https://open-policy-agent.github.io/gatekeeper/website/docs/howto).
 
-For a simple trial run go to /dev/service.yaml and uncomment the line ```geo-US: "true"``` and commit your changes to this repo. Now argo with try to sync these changes, but fail due to our ```services-no-geo-label.yaml``` constraint. For a short demo watch [this video](https://tubcloud.tu-berlin.de/apps/files/?dir=/Shared/TOUCAN/AP3%20-%20Pipelines&openfile=3707970558).
+The GH-Workflow under .github/workflows/tilt_geo_extraction.yml reads the ```dataDisclosed>recipients>country``` field and adds a geo-label to dev/service.yaml.
+
+ArgoCD continuously checks this repo, appying changes to the deployment, if the repo changes.
+
+🚨 OPA Gatekeeper checks the service.yaml for prohibited labels. In this case ```geo-US: "true"``` is not allowed to be deployed --> 💔 Sync Failed.
+
+For a simple trial run go to tilt.yaml, change the country to "US" and commit your changes to this repo. Now argo with try to sync these changes, but fail due to our ```services-no-geo-us-label.yaml``` constraint. For a short demo watch [this video](https://tubcloud.tu-berlin.de/apps/files/?dir=/Shared/TOUCAN/AP3%20-%20Pipelines&openfile=3708126225).
+
+If you want to get things up and running angain, remove the ```geo-US: "true"``` label from dev/service.yaml, commit to GH and sync ArgoCD.
