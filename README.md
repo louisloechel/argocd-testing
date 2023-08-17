@@ -1,3 +1,7 @@
+# TILT 🤝 OPA-Gatekeeper 🤝 ArgoCD
+This is a proof of concept for a CD-Pipeline using a TILT Document as source of truth, when deciding whether to deploy changes to production. In this case a GitHub workflow extracts the ```country``` infromation, writes it to the k8s service definition, for it to be checked by OPA-Gatekeeper before being deployed by ArgoCD.
+
+
 ## 1. ArgoCD setup instructions
 ### Disclaimer: This demo is based on [this tutorial by Nana Janishia](https://gitlab.com/nanuchi/argocd-app-config).
 
