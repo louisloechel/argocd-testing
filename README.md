@@ -40,4 +40,4 @@ kubectl apply -f https://raw.githubusercontent.com/open-policy-agent/gatekeeper/
 ## 3. Usage
 Find current templates and constraints within /gatekeeper-policies. Read more about this in the [gatekkeper docs](https://open-policy-agent.github.io/gatekeeper/website/docs/howto).
 
-For a simple trial run go to /dev/service.yaml and uncomment the line ```geo-US: "true"`````` and commit your changes to this repo. Now argo with try to sync these changes, but fail due to our ```services-no-geo-label.yaml``` constraint. For a short demo watch [this video](https://tubcloud.tu-berlin.de/apps/files/?dir=/Shared/TOUCAN/AP3%20-%20Pipelines&openfile=3707970558).
+For a simple trial run go to /dev/service.yaml and uncomment the line ```geo-US: "true"``` and commit your changes to this repo. Now argo with try to sync these changes, but fail due to our ```services-no-geo-label.yaml``` constraint. For a short demo watch [this video](https://tubcloud.tu-berlin.de/apps/files/?dir=/Shared/TOUCAN/AP3%20-%20Pipelines&openfile=3707970558).
