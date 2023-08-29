@@ -38,8 +38,17 @@ kubectl get pod -n myapp
 ```
 
 ## 2. Gatekeeper setup instructions
+Deploy OPA Gatekeeper
 ```
 kubectl apply -f https://raw.githubusercontent.com/open-policy-agent/gatekeeper/master/deploy/gatekeeper.yaml
+```
+Apply Gatekeeper template
+```
+kubectl apply -f gatekeeper-policies/templates/prohibited-labels-template.yaml
+```
+Apply Gatekeeper constraint
+```
+kubectl apply -f gatekeeper-policies/constraints/services-no-geo-label.yaml 
 ```
 ## 3. Usage
 Find current templates and constraints within /gatekeeper-policies. Read more about this in the [gatekkeper docs](https://open-policy-agent.github.io/gatekeeper/website/docs/howto).
