@@ -2,6 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: myapp
+  labels:
+    geo-US: "true"
+    geo-EU: "true"
 spec:
   selector:
     matchLabels:
@@ -11,8 +14,6 @@ spec:
     metadata:
       labels:
         app: myapp
-        geo-US: "true"
-        geo-EU: "true"
     spec:
       containers:
       - name: myapp
