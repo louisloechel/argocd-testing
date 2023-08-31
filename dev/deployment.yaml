@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: myapp
   labels:
-    geo-US: "true"
+    geo-US: "false"
 spec:
   selector:
     matchLabels:
