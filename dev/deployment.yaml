@@ -4,6 +4,7 @@ metadata:
   name: myapp
   labels:
     geo-EU: "true"
+    geo-US: "true"
     #geo-null: "true"
 spec:
   selector:
