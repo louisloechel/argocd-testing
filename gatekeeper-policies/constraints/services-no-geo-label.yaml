@@ -6,6 +6,6 @@ spec:
   match:
     kinds:
       - apiGroups: [""]
-        kinds: ["Service"]
+        kinds: ["Deployment"]
   parameters:
     labels: ["geo-US"]
