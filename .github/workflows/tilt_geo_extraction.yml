@@ -19,7 +19,7 @@ jobs:
     - name: Set up JQ
       run: sudo apt-get install jq
 
-    - name: Extract country and update service.yaml
+    - name: Extract country and update deployment.yaml
       run: |
         # Extract country from tilt.json
         COUNTRIES=$(jq -r '.dataDisclosed[]?.recipients[]?.country' tilt.json)
