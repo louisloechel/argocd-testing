@@ -11,6 +11,8 @@ spec:
     metadata:
       labels:
         app: myapp
+        # geo-null: "true"
+        geo-EU: "true"
     spec:
       containers:
       - name: myapp
