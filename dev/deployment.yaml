@@ -1,8 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: myapp
   labels:
+  name: myapp
 spec:
   selector:
     matchLabels:
@@ -11,7 +11,6 @@ spec:
   template:
     metadata:
       labels:
-        geo-EU: "true"
         app: myapp
     spec:
       containers:
