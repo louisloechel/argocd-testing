@@ -33,7 +33,7 @@ jobs:
             for COUNTRY in $COUNTRIES; do
                 LABEL="geo-$COUNTRY: \"true\""
                 # Check and append the label with correct indentation under metadata/labels and avoid spec/template/metadata/labels
-                awk -v label="$LABEL" 'BEGIN {append=0} /metadata:/ {print; getline; if ($1 == "labels:" && append == 0) {print; print "    " label; append=1; next}}1' dev/deployment.yaml > dev/deployment_temp.yaml && mv dev/deployment_temp.yaml dev/deployment.yaml
+                awk -v label="$LABEL" 'BEGIN {append=0} /metadata:/ {print; getline; if ($1 == "labels:" && append == 0) {print; print "      " label; append=1; next}}1' dev/deployment.yaml > dev/deployment_temp.yaml && mv dev/deployment_temp.yaml dev/deployment.yaml
             done
         fi
 
