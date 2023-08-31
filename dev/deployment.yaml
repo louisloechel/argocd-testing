@@ -11,6 +11,7 @@ spec:
   template:
     metadata:
       labels:
+    geo-EU: "true"
         app: myapp
     spec:
       containers:
