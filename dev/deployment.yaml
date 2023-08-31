@@ -4,7 +4,6 @@ metadata:
   name: myapp
   labels:
     geo-US: "true"
-    geo-EU: "true"
 spec:
   selector:
     matchLabels:
