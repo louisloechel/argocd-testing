@@ -32,7 +32,9 @@ jobs:
             # Update deployment.yaml for each country
             for COUNTRY in $COUNTRIES; do
                 LABEL="geo-$COUNTRY: \"true\""
-                # Check and append the label with correct indentation under metadata/labels and avoid spec/template/metadata/labels
+                # Check and append the label with correct indentation under metadata/labels. Only dows this at the first instance of labels and not for subsequent instances. 
+                # IMPORTANT: This assumes that the labels are indented with 4 spaces. If the indentation is different, this will not work.
+                # ALSO: This assumes that the labels are the first entry under metadata. If the labels are under some other section or not the first entry, this will not work. 
                 awk -v label="$LABEL" 'BEGIN {append=0} /metadata:/ {print; getline; if ($1 == "labels:" && append == 0) {print; print "    " label; append=1; next}}1' dev/deployment.yaml > dev/deployment_temp.yaml && mv dev/deployment_temp.yaml dev/deployment.yaml
             done
         fi
