@@ -3,9 +3,6 @@ kind: Deployment
 metadata:
   name: myapp
   labels:
-    geo-EU: "true"
-    geo-US: "true"
-    #geo-null: "true"
 spec:
   selector:
     matchLabels:
@@ -14,8 +11,6 @@ spec:
   template:
     metadata:
       labels:
-    #geo-EU: "true"
-    #geo-null: "true"
         app: myapp
     spec:
       containers:
