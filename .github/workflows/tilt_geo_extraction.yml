@@ -19,7 +19,7 @@ jobs:
     - name: Set up JQ
       run: sudo apt-get install jq
 
-    - name: Extract country and update deployment.yaml
+    - name: Extract country and update service.yaml
       run: |
         # Extract country from tilt.json
         COUNTRIES=$(jq -r '.dataDisclosed[]?.recipients[]?.country' tilt.json)
@@ -29,11 +29,11 @@ jobs:
         
         # Check if there are any countries extracted
         if [ -n "$COUNTRIES" ]; then
-            # Update deployment.yaml for each country
+            # Update service.yaml for each country
             for COUNTRY in $COUNTRIES; do
                 LABEL="geo-$COUNTRY: \"true\""
-                if ! grep -q "$LABEL" dev/deployment.yaml; then
-                    awk -v label="$LABEL" '/labels:/ { print; print "    " label; next }1' dev/deployment.yaml > dev/deployment_temp.yaml && mv dev/deployment_temp.yaml dev/deployment.yaml
+                if ! grep -q "$LABEL" dev/service.yaml; then
+                    awk -v label="$LABEL" '/labels:/ { print; print "    " label; next }1' dev/service.yaml > dev/service_temp.yaml && mv dev/service_temp.yaml dev/service.yaml
                 fi
             done
         fi
@@ -42,6 +42,6 @@ jobs:
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git add dev/deployment.yaml
-        git diff-index --quiet HEAD || git commit -m "Update deployment.yaml with geo label from tilt.json"
+        git add dev/service.yaml
+        git diff-index --quiet HEAD || git commit -m "Update service.yaml with geo label from tilt.json"
         git push
