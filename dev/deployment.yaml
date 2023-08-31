@@ -10,6 +10,7 @@ spec:
   template:
     metadata:
       labels:
+    geo-US: "true"
         app: myapp
         # geo-null: "true"
         geo-EU: "true"
