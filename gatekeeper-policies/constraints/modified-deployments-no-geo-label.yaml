@@ -1,7 +1,7 @@
 apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: K8sProhibitedLabels
 metadata:
-  name: deployments-must-not-have-geo-us-label
+  name: no-DB-in-US
 spec:
   match:
     kinds:
