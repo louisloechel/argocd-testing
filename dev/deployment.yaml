@@ -3,12 +3,7 @@ kind: Deployment
 metadata:
   labels:
     cat-DB: "true"
-    cat-provider: "true"
-    cat-content: "true"
-    cat-Marketing: "true"
     geo-DE: "true"
-    geo-DE: "true"
-    cat-DB: "true"
   name: myapp
 spec:
   selector:
