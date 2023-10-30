@@ -2,8 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    geo-US: "true"
-    geo-US: "true"
     cat-DB: "true"
   name: myapp
 spec:
