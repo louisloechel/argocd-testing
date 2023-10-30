@@ -38,11 +38,31 @@ jobs:
                 awk -v label="$LABEL" 'BEGIN {append=0} /metadata:/ {print; getline; if ($1 == "labels:" && append == 0) {print; print "    " label; append=1; next}}1' dev/deployment.yaml > dev/deployment_temp.yaml && mv dev/deployment_temp.yaml dev/deployment.yaml
             done
         fi
+    
+    - name: Extract category and update deployment.yaml
+      run: |
+        # Extract category from tilt.json
+        CATEGORIES=$(jq -r '.dataDisclosed[]?.recipients[]?.category | select(.!=null)' tilt.json)
+        
+        # Print the extracted categories
+        echo "Extracted Countries: $CATEGORIES"
+        
+        # Check if there are any categories extracted
+        if [ -n "$CATEGORIES" ]; then
+            # Update deployment.yaml for each category
+            for CATEGORY in $CATEGORIES; do
+                LABEL="cat-$CATEGORY: \"true\""
+                # Check and append the label with correct indentation under metadata/labels. Only does this at the first instance of labels and not for subsequent instances. 
+                # IMPORTANT: This assumes that the labels are indented with 4 spaces. If the indentation is different, this will not work.
+                # ALSO: This assumes that the labels are the first entry under metadata. If the labels are under some other section or not the first entry, this will not work. 
+                awk -v label="$LABEL" 'BEGIN {append=0} /metadata:/ {print; getline; if ($1 == "labels:" && append == 0) {print; print "    " label; append=1; next}}1' dev/deployment.yaml > dev/deployment_temp.yaml && mv dev/deployment_temp.yaml dev/deployment.yaml
+            done
+        fi
 
     - name: Commit and push if changed
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add dev/deployment.yaml
-        git diff-index --quiet HEAD || git commit -m "Update deployment.yaml with geo label from tilt.json"
+        git diff-index --quiet HEAD || git commit -m "Update deployment.yaml with tilt-labels"
         git push
