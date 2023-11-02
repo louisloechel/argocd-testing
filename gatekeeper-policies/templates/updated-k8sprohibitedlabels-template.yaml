@@ -27,6 +27,7 @@ spec:
         violation[{"msg": msg, "details": {"prohibited_labels": prohibitedLabels}}] {
           label1 := input.parameters.prohibitedLabels[_]
           label2 := input.parameters.prohibitedLabels[_]
+          msg:= "label1: " + label1 + " label2: " + label2
           label1.key == "cat" 
           label1.value == "DB" 
           label2.key == "geo" 
