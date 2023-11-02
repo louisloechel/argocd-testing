@@ -4,6 +4,8 @@ metadata:
   labels:
     cat: DB
     geo: US
+    cat-DB: "true"
+    geo-US: "true"
   name: myapp
 spec:
   selector:
