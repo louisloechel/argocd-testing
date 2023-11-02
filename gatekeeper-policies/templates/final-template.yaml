@@ -12,7 +12,7 @@ spec:
       rego: |
         package k8sprohibitedlabels
 
-        violation[{"msg": msg, "details": {"missing_labels": missing}}] {
+        violation[{"msg": msg, "details": {"prohibited_labels": prohibitedLabels}}] {
             input.review.object.metadata.labels
             cat := input.review.object.metadata.labels["cat"]
             geo := input.review.object.metadata.labels["geo"]
