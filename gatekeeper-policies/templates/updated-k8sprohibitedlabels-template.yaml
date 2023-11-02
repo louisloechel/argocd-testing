@@ -25,9 +25,9 @@ spec:
         package k8sprohibitedlabels
         
         violation[{"msg": msg, "details": {"prohibited_labels": prohibitedLabels}}] {
-          input.review.object.metadata.labels[key] == value
           prohibitedLabels := input.parameters.prohibitedLabels[_]
           key := prohibitedLabels.key
           value := prohibitedLabels.value
+          input.review.object.metadata.labels[key] == value
           msg := sprintf("The label %v=%v is prohibited", [key, value])
         }
