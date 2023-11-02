@@ -1,0 +1,33 @@
+apiVersion: templates.gatekeeper.sh/v1beta1
+kind: ConstraintTemplate
+metadata:
+  name: k8sprohibitedlabels
+spec:
+  crd:
+    spec:
+      names:
+        kind: K8sProhibitedLabels
+      validation:
+        openAPIV3Schema:
+          properties:
+            prohibitedLabels:
+              type: array
+              items:
+                type: object
+                properties:
+                  key:
+                    type: string
+                  value:
+                    type: string
+  targets:
+    - target: admission.k8s.gatekeeper.sh
+      rego: |
+        package k8sprohibitedlabels
+        
+        violation[{"msg": msg, "details": {"prohibited_labels": prohibitedLabels}}] {
+          input.review.object.metadata.labels[key] == value
+          prohibitedLabels := input.parameters.prohibitedLabels[_]
+          key := prohibitedLabels.key
+          value := prohibitedLabels.value
+          msg := sprintf("The label %v=%v is prohibited", [key, value])
+        }
