@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    geo-DE: "true"
   name: myapp
 spec:
   selector:
