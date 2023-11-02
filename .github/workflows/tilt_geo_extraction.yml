@@ -31,7 +31,7 @@ jobs:
         if [ -n "$COUNTRIES" ]; then
             # Update deployment.yaml for each country
             for COUNTRY in $COUNTRIES; do
-                LABEL="geo-$COUNTRY: \"true\""
+                LABEL="geo: $COUNTRY"
                 # Check and append the label with correct indentation under metadata/labels. Only dows this at the first instance of labels and not for subsequent instances. 
                 # IMPORTANT: This assumes that the labels are indented with 4 spaces. If the indentation is different, this will not work.
                 # ALSO: This assumes that the labels are the first entry under metadata. If the labels are under some other section or not the first entry, this will not work. 
@@ -51,7 +51,7 @@ jobs:
         if [ -n "$CATEGORIES" ]; then
             # Update deployment.yaml for each category
             for CATEGORY in $CATEGORIES; do
-                LABEL="cat-$CATEGORY: \"true\""
+                LABEL="cat: $CATEGORY"
                 # Check and append the label with correct indentation under metadata/labels. Only does this at the first instance of labels and not for subsequent instances. 
                 # IMPORTANT: This assumes that the labels are indented with 4 spaces. If the indentation is different, this will not work.
                 # ALSO: This assumes that the labels are the first entry under metadata. If the labels are under some other section or not the first entry, this will not work. 
