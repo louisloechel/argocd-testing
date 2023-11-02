@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   labels:
     cat: DB
-    geo: US
+    geo: DE
   name: myapp
 spec:
   selector:
