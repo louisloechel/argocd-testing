@@ -1,7 +1,7 @@
 apiVersion: constraints.gatekeeper.sh/v1beta1
-kind: K8sProhibitedLabels
+kind: NoDbUsDeployments
 metadata:
-  name: final-no-db-in-us
+  name: no-db-us-deployments-constraint
 spec:
   match:
     kinds:
