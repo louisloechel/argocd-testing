@@ -1,0 +1,22 @@
+apiVersion: templates.gatekeeper.sh/v1beta1
+kind: ConstraintTemplate
+metadata:
+  name: k8sprohibitedlabels
+spec:
+  crd:
+    spec:
+      names:
+        kind: K8sProhibitedLabels
+  targets:
+    - target: admission.k8s.gatekeeper.sh
+      rego: |
+        package k8sprohibitedlabels
+
+        violation[{"msg": msg, "details": {"missing_labels": missing}}] {
+            input.review.object.metadata.labels
+            cat := input.review.object.metadata.labels["cat"]
+            geo := input.review.object.metadata.labels["geo"]
+            cat == "DB"
+            geo == "US"
+            msg := sprintf("Deployment with cat:DB and geo:US is not allowed: %v", [input.review.object.metadata.name])
+        }
