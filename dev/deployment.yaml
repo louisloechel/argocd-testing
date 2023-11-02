@@ -2,8 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    cat: DB
-    geo: DE
   name: myapp
 spec:
   selector:
